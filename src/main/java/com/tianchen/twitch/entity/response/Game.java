@@ -1,4 +1,4 @@
-package com.laioffer.jupiter.entity.response;
+package com.tianchen.twitch.entity.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

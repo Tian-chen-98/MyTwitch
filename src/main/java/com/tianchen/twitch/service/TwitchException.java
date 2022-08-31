@@ -1,4 +1,4 @@
-package com.laioffer.jupiter.service;
+package com.tianchen.twitch.service;
 
 public class TwitchException extends RuntimeException {
   public TwitchException(String errorMessage) {

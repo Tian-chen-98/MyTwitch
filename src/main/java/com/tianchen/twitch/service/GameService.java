@@ -1,10 +1,10 @@
-package com.laioffer.jupiter.service;
+package com.tianchen.twitch.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.laioffer.jupiter.entity.db.Item;
-import com.laioffer.jupiter.entity.db.ItemType;
-import com.laioffer.jupiter.entity.response.Game;
+import com.tianchen.twitch.entity.db.Item;
+import com.tianchen.twitch.entity.db.ItemType;
+import com.tianchen.twitch.entity.response.Game;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
@@ -21,7 +21,7 @@ import java.util.*;
 
 @Service
 public class GameService {
-  private static final String TOKEN = "Bearer h8y93lt4u88ot3zawa03vig6o4rx46";
+  private static final String TOKEN = "Bearer up2zmvutcb5rardel0tkx09lwewurc";
   private static final String CLIENT_ID = "a9iom8596jirnts9fjjexxao8ml7xy";
   private static final String TOP_GAME_URL = "https://api.twitch.tv/helix/games/top?first=%s";
   private static final String GAME_SEARCH_URL_TEMPLATE = "https://api.twitch.tv/helix/games?name=%s";
@@ -93,7 +93,7 @@ public class GameService {
     }
   }
   
-  // Convert JSON format data returned from Twitch to an Arraylist of Game objects
+  // Convert JSON format data returned from Twitch of data structure Game to an Arraylist of Game objects
   private List<Game> getGameList(String data) {
     ObjectMapper mapper = new ObjectMapper();
     try {
@@ -122,6 +122,7 @@ public class GameService {
   }
   
   // Similar to getGameList, convert the json data returned from Twitch to a list of Item objects.
+  // Using Item here because depending on the type of ItemType, returned data can be different.
   private List<Item> getItemList(String data) throws TwitchException {
     ObjectMapper mapper = new ObjectMapper();
     try {
@@ -160,7 +161,8 @@ public class GameService {
     return videos;
   }
   
-  private List<Item> searchByType(String gameId, ItemType type, int limit) throws TwitchException {
+  // Specify function for different ItemType
+  List<Item> searchByType(String gameId, ItemType type, int limit) throws TwitchException {
     List<Item> items = Collections.emptyList();
     
     switch (type) {
@@ -174,7 +176,6 @@ public class GameService {
         items = searchClips(gameId, limit);
         break;
     }
-    
     // Update gameId for all items. GameId is used by recommendation function
     for (Item item : items) {
       item.setGameId(gameId);
@@ -182,6 +183,7 @@ public class GameService {
     return items;
   }
   
+  // API being called by SearchController
   public Map<String, List<Item>> searchItems(String gameId) throws TwitchException {
     Map<String, List<Item>> itemMap = new HashMap<>();
     for (ItemType type : ItemType.values()) {

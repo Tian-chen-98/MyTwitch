@@ -1,8 +1,8 @@
-package com.laioffer.jupiter.controller;
+package com.tianchen.twitch.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.laioffer.jupiter.service.GameService;
-import com.laioffer.jupiter.service.TwitchException;
+import com.tianchen.twitch.service.GameService;
+import com.tianchen.twitch.service.TwitchException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
